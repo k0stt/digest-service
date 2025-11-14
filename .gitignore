@@ -1,0 +1,29 @@
+# Go
+bin/
+pkg/
+*.exe
+*.test
+*.prof
+
+# Dependency directories
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.local
