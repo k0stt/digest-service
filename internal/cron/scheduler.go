@@ -5,6 +5,7 @@ import (
 	"digest-service/internal/models"
 	"digest-service/internal/repository"
 	"log"
+	"os"
 	"time"
 
 	"github.com/robfig/cron/v3"
@@ -14,13 +15,30 @@ type Scheduler struct {
 	repo          *repository.PostgresRepository
 	digestService *digest.DigestService
 	cron          *cron.Cron
+	tz            *time.Location
 }
 
 func NewScheduler(repo *repository.PostgresRepository) *Scheduler {
+	// Load timezone from environment (TZ). If not set or invalid, fall back to local.
+	tzName := os.Getenv("TZ")
+	var loc *time.Location
+	if tzName != "" {
+		l, err := time.LoadLocation(tzName)
+		if err != nil {
+			log.Printf("⚠️  Could not load timezone %s: %v. Using local time.", tzName, err)
+			loc = time.Local
+		} else {
+			loc = l
+		}
+	} else {
+		loc = time.Local
+	}
+
 	return &Scheduler{
 		repo:          repo,
 		digestService: digest.NewDigestService(repo),
-		cron:          cron.New(),
+		cron:          cron.New(cron.WithLocation(loc)),
+		tz:            loc,
 	}
 }
 
@@ -40,7 +58,14 @@ func (s *Scheduler) Stop() {
 }
 
 func (s *Scheduler) checkScheduledDigests() {
-	currentTime := time.Now().Format("15:04")
+	// Use configured timezone for all scheduler time checks/logs
+	var now time.Time
+	if s.tz != nil {
+		now = time.Now().In(s.tz)
+	} else {
+		now = time.Now()
+	}
+	currentTime := now.Format("15:04")
 	log.Printf("⏰ Checking scheduled digests at %s", currentTime)
 
 	// Получаем всех пользователей из БД

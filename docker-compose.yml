@@ -9,6 +9,7 @@ services:
       - db
     environment:
       - DATABASE_URL=postgres://user:password@db:5432/digest_service?sslmode=disable
+      - TZ=Europe/Moscow
     restart: unless-stopped
 
   db:
