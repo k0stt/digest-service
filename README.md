@@ -1,16 +1,16 @@
-# 📧 Digest Service
+# Digest Service
 
 Умный сервис для ежедневных дайджестов электронной почты.
 
-## 🚀 Возможности
+## Возможности
 
-- 📨 Автоматический сбор писем за последние 24 часа
-- ⏰ Планирование отправки дайджестов по расписанию  
-- 🔐 Безопасная аутентификация с JWT
-- 🐳 Docker-контейнеризация
-- 📱 Адаптивный веб-интерфейс
+- Автоматический сбор писем за последние 24 часа
+- Планирование отправки дайджестов по расписанию  
+- Безопасная аутентификация с JWT
+- Docker-контейнеризация
+- Адаптивный веб-интерфейс
 
-## 🛠 Технологии
+## Технологии
 
 - **Backend**: Go, Gorilla Mux, JWT, PostgreSQL
 - **Frontend**: Vanilla JavaScript, HTML5, CSS3
@@ -18,7 +18,7 @@
 - **Containerization**: Docker, Docker Compose
 - **Email**: IMAP/SMTP интеграция
 
-## 📦 Быстрый старт
+## Быстрый старт
 
 ### Требования
 - Docker
@@ -28,7 +28,7 @@
 
 ```bash
 # Клонируйте репозиторий
-git clone https://github.com/your-username/digest-service.git
+git clone https://github.com/k0stt/digest-service.git
 cd digest-service
 
 # Запустите приложение
